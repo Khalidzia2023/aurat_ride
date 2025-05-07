@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "83810403876",
+    "project_id": "aurat-ride-1cfcd",
+    "storage_bucket": "aurat-ride-1cfcd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83810403876:android:de9bc76fd598bc718b3ab1",
+        "android_client_info": {
+          "package_name": "com.example.aurat_ride"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs0Q9q6PzmzeT0S6XnH1E4qEZ06U7iZUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
