@@ -148,18 +148,66 @@ class _SignupScreenState extends State<SignupScreen> {
                   : CustomContainer(
                 height: 46,
                 width: double.infinity,
-                onTap: () {
+                  onTap: () async {
+                    final email = _emailController.text.trim();
+                    final password = _passwordController.text.trim();
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-                  ToastHelper.showCustomToast(
-                    context: context,
-                    message: 'You successfully Register with Aurat Ride',
-                    type: ToastificationType.success,
-                    icon: Icons.check,
-                    primaryColor: Colors.green,
-                  );
-                },
-                bgColor: AppColors.blueColor.withValues(alpha: 0.77),
+                    if (email.isEmpty || password.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Please enter both email and password")),
+                      );
+                      return;
+                    }
+
+                    setState(() {
+                      isLoading = true;
+                    });
+
+                    try {
+                      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+
+                      ToastHelper.showCustomToast(
+                        context: context,
+                        message: 'You successfully registered with Aurat Ride',
+                        type: ToastificationType.success,
+                        icon: Icons.check,
+                        primaryColor: Colors.green,
+                      );
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      String errorMessage;
+                      switch (e.code) {
+                        case 'email-already-in-use':
+                          errorMessage = 'This email is already registered. Please login instead.';
+                          break;
+                        case 'invalid-email':
+                          errorMessage = 'The email address is not valid.';
+                          break;
+                        case 'weak-password':
+                          errorMessage = 'The password is too weak.';
+                          break;
+                        default:
+                          errorMessage = e.message ?? 'Signup failed.';
+                      }
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(errorMessage)),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('An unexpected error occurred')),
+                      );
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+                  },
+                  bgColor: AppColors.blueColor.withValues(alpha: 0.77),
                 boxBorder: Border.all(color: Colors.grey, width: 2),
                 borderRadius: BorderRadius.circular(10),
                 child: Center(

@@ -32,44 +32,46 @@ class PhoneNumber extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 20,
-        children: [
-          SizedBox(height: 20,),
-          Image.asset(AppImages.phonePic, scale: 10,),
-
-          Text('Change phone number', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: IntlPhoneField(
-              decoration: InputDecoration(
-                isDense: true,
-                labelText: 'Phone Number',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(),
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 20,
+          children: [
+            SizedBox(height: 20,),
+            Image.asset(AppImages.phonePic, scale: 10,),
+        
+            Text('Change phone number', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),),
+        
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: IntlPhoneField(
+                decoration: InputDecoration(
+                  isDense: true,
+                  labelText: 'Phone Number',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: BorderSide(),
+                  ),
                 ),
+                initialCountryCode: 'PK',
+                onChanged: (phone) {
+                  print(phone.completeNumber);
+                },
               ),
-              initialCountryCode: 'PK',
-              onChanged: (phone) {
-                print(phone.completeNumber);
-              },
             ),
-          ),
-          SizedBox(height: 40,),
-          CustomContainer(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              height: 46, width: double.infinity,
-              borderRadius: BorderRadius.circular(16),
-              bgColor: Colors.green,
-              child: Center(child: regularTextWidget(title: 'Change Number', textSize: 16, textColor: Colors.white))
-          ),
-          Text('get otp for phone changed', style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, fontSize: 18),),
-
-        ],
+            SizedBox(height: 40,),
+            CustomContainer(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                height: 46, width: double.infinity,
+                borderRadius: BorderRadius.circular(16),
+                bgColor: Colors.green,
+                child: Center(child: regularTextWidget(title: 'Change Number', textSize: 16, textColor: Colors.white))
+            ),
+            Text('get otp for phone changed', style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600, fontSize: 18),),
+        
+          ],
+        ),
       ),
     );
   }

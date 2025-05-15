@@ -1,5 +1,6 @@
 import 'package:aurat_ride/presentation/auth_screens/login_screen/view/login_screen.dart';
 import 'package:aurat_ride/presentation/home_screen/home_screen.dart';
+import 'package:aurat_ride/presentation/welcome_screen/welcome_screen.dart';
 import 'package:aurat_ride/utils/app_images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,21 +18,11 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     Future.delayed(Duration(seconds: 3), () {
-      final user = FirebaseAuth.instance.currentUser;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context)
+          => WelcomeScreen()),);
 
-      if (user != null) {
-        // ✅ User is already logged in
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
-      } else {
-        // ❌ User not logged in
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-        );
-      }
     });
   }
 
